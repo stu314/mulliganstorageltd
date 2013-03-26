@@ -18,11 +18,14 @@ $(document).ready(function () {
 	  var fOV = 30;     //Field of View
     var aR = window.innerWidth / window.innerHeight;     //Aspect Ratio
     var nEAR = 0.1;    //Near
-    var fAR = 3000;    //far
-    var camx = 0;   
-    var camy = 0;
-    var camz = 300;
-    
+    var fAR = 3000;    //far   
+    var camx = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))
+    var camy = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))   
+    var camz = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))
+    alert("x: "+camx + "y: "+camy + "z: "+camz) 
+
+
+
 	/////////////////////////////////
 	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//    VARIABLES TO FUCK WITH
