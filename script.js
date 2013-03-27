@@ -18,13 +18,13 @@ $(document).ready(function () {
         var aR = window.innerWidth / window.innerHeight;     //Aspect Ratio
         var nEAR = 0.1;    //Near
         var fAR = 3000;    //far   
-        var camx = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))
-        var camy = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))   
-        var camz = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))
+        var camx = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: X
+        var camy = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: Y  
+        var camz = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: Z
         alert("x: "+camx + "y: "+camy + "z: "+camz) 
 
-        var _speed = 0.03;
-
+        var _speed = 0.03; //Movement Speed, Default 0.3
+var objects = [];
 	/////////////////////////////////
 	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//    VARIABLES TO FUCK WITH
@@ -51,11 +51,6 @@ $(document).ready(function () {
     camera.position.set((camx),(camy),(camz));
     scene.add(camera);
     
-    // Frustum
-     
-
-
-    //NEED TO LOOK UP THIS RASCLART CODE
     
     //set up controls for the camera   
 
@@ -97,11 +92,10 @@ $(document).ready(function () {
     light2.position.set(0,10,-10).normalize();
     light2.rotation.x = Math.PI;*/
     scene.add(light);
-   scene.add(light1);
+    scene.add(light1);
     //scene.add(light2);
   
-      // create a lambert mesh
-      //var material = new THREE.MeshLambertMaterial({color: 0x366366});
+
 
       var texture = THREE.ImageUtils.loadTexture('moon.jpg');
       var material = new THREE.MeshBasicMaterial({map: texture});
@@ -138,18 +132,54 @@ $(document).ready(function () {
 
 	};
     // add objects to the scene using positions array
-    //Guessing this is where the code needs to go to check whether or not the object is within the frustum
+    
     for(i=0;i<positions.length;i++){
         var object = new THREE.Mesh(geometry, material);
         object.position.set(positions[i].x,positions[i].y,positions[i].z);
-		
+        
         scene.add(object);
+        
+        objects.push ( object );
+        
+        
     };
+    
+    
+    
 	var wgeometry = new THREE.SphereGeometry(100,32,32);
     var world = new THREE.Mesh(wgeometry, material);
 	if(_world){
 		scene.add(world)
 	}
+    
+    
+    
+    //Below code makes stars clickable
+    
+    var projector = new THREE.Projector();
+    
+    document.addEventListener( 'mousedown', onDocumentMouseDown, false );
+    
+    function onDocumentMouseDown( event ) {
+            
+    var vector = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1, - ( event.clientY / window.innerHeight ) * 2 + 1, 0.5 );
+                projector.unprojectVector( vector, camera );
+
+                var ray = new THREE.Ray( camera.position, vector.subSelf( camera.position ).normalize() );
+
+                var intersects = ray.intersectObjects( objects );
+
+                if ( intersects.length > 0 ) {
+                        
+                    
+                    
+                    var location = intersects[ 0 ].point;
+                    
+                    alert("Co-ordinates of this star\nX:="+location.x + "\nY:="+location.y + "\nZ:=" + location.z +"\nEGG I'M A RASCLART GENIUS\nThis actually displays the exact co-ordinate of where on the star you clicked, which is why you might get values with a range of 0.4 (star diameter) when clicking the same star multiple times.\nAlso, Bug: when you click OK, you are going to start moving, press W to stop");
+                    //Instead of alert, here we should use location.x y and z to pull star info from the database: BOOOM WITH BASE RESPECT YOUR SHIT. 
+                    
+
+                }}
 	
 	for(i=0;i<100;i++){
 		console.log(scene.children[i]);
