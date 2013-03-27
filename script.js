@@ -12,7 +12,7 @@ $(document).ready(function () {
 	var _noOfStars = 16000; //default 16000
 	var _sizeOfUniverse = 1000; //default 1000, this is radius
 	var _sizeOfStars = 0.2; //default 0.2 this is radius
-	var _starColor = "c5fc34" //default ffffff, this is a string containing a 24 bit hexadecimal number
+	var _starColor = "ffffff" //default ffffff, this is a string containing a 24 bit hexadecimal number
 	var _world = false; //no default, boolean to state wether you want the hench star in it at center
 	
 	  var fOV = 30;     //Field of View
@@ -88,8 +88,11 @@ $(document).ready(function () {
    scene.add(light1);
     //scene.add(light2);
   
-    // create a lambert mesh
-    var material = new THREE.MeshLambertMaterial({color: 0x366366});
+      // create a lambert mesh
+      //var material = new THREE.MeshLambertMaterial({color: 0x366366});
+
+      var texture = THREE.ImageUtils.loadTexture('moon.jpg');
+      var material = new THREE.MeshBasicMaterial({map: texture});
     
     // create cube geometry
     var geometry = new THREE.SphereGeometry(_sizeOfStars,32,32);
