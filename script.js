@@ -14,17 +14,16 @@ $(document).ready(function () {
 	var _sizeOfStars = 0.2; //default 0.2 this is radius
 	var _starColor = "ffffff" //default ffffff, this is a string containing a 24 bit hexadecimal number
 	var _world = false; //no default, boolean to state wether you want the hench star in it at center
-	
-	  var fOV = 30;     //Field of View
-    var aR = window.innerWidth / window.innerHeight;     //Aspect Ratio
-    var nEAR = 0.1;    //Near
-    var fAR = 3000;    //far   
-    var camx = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))
-    var camy = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))   
-    var camz = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))
-    alert("x: "+camx + "y: "+camy + "z: "+camz) 
+        var fOV = 30;     //Field of View
+        var aR = window.innerWidth / window.innerHeight;     //Aspect Ratio
+        var nEAR = 0.1;    //Near
+        var fAR = 3000;    //far   
+        var camx = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))
+        var camy = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))   
+        var camz = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse))
+        alert("x: "+camx + "y: "+camy + "z: "+camz) 
 
-
+        var _speed = 0.03;
 
 	/////////////////////////////////
 	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -54,21 +53,34 @@ $(document).ready(function () {
     
     // Frustum
      
-    
+
+
     //NEED TO LOOK UP THIS RASCLART CODE
     
-    //set up controls for the camera
-    
-    
-        
+    //set up controls for the camera   
 
     var control = new THREE.FirstPersonControls(camera);
     control.dragToLook = false;
     control.verticalMax = 3*Math.PI / 4;
     control.lookSpeed = 0.0001;
-    control.movementSpeed = 0.03;
+    control.movementSpeed = _speed;
 
-  
+    //Variable Speed controls
+        document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 49) {
+        control.movementSpeed = 0.01;
+    }
+    else if(event.keyCode == 50) {
+        control.movementSpeed = 0.03;
+    }
+    else if(event.keyCode == 51) {
+        control.movementSpeed = 0.2;
+    }
+    else if(event.keyCode == 52) {
+        control.movementSpeed = 0.4;
+        alert('WARNING: HyperSpeed OverDrive Thrusters With BASE Engaged');
+    }
+});    
  /*
     var control = new THREE.FlyControls(camera);
     control.dragToLook = false;
