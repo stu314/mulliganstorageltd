@@ -14,14 +14,14 @@ $(document).ready(function () {
 	var _sizeOfStars = 0.2; //default 0.2 this is radius
 	var _starColor = "ffffff" //default ffffff, this is a string containing a 24 bit hexadecimal number
 	var _world = false; //no default, boolean to state wether you want the hench star in it at center
-        var fOV = 30;     //Field of View
+        var fOV = 45;     //Field of View default 30
         var aR = window.innerWidth / window.innerHeight;     //Aspect Ratio
-        var nEAR = 0.1;    //Near
-        var fAR = 3000;    //far   
+        var nEAR = 0.1;    //Near  - Default 0.2
+        var fAR = 2000;    //far  - Default: 3000
         var camx = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: X
         var camy = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: Y  
         var camz = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: Z
-        alert("x: "+camx + "y: "+camy + "z: "+camz) 
+        alert("x: "+camx + "y: "+camy + "z: "+camz + "\n"+ _noOfStars + " stars");
 
         var _speed = 0.03; //Movement Speed, Default 0.3
 var objects = [];
@@ -185,12 +185,11 @@ var objects = [];
 		console.log(scene.children[i]);
 	}
     // Run our render loop
-    run();
-    
+    run();    
 function run() {
     // update controls at 60fps
     control.update(1000/60);
-	console.log(camera.position);
+	console.log(renderer.info);
     //render scene and camera                  
     renderer.render (scene, camera);
     requestAnimationFrame(run);
