@@ -17,7 +17,7 @@ $(document).ready(function () {
         var fOV = 45;     //Field of View default 30
         var aR = window.innerWidth / window.innerHeight;     //Aspect Ratio
         var nEAR = 0.1;    //Near  - Default 0.2
-        var fAR = 2000;    //far  - Default: 3000
+        var fAR = 3000;    //far  - Default: 3000
         var camx = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: X
         var camy = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: Y  
         var camz = Math.floor((Math.random()*1.5*_sizeOfUniverse)-(0.75*_sizeOfUniverse)); //Starting position: Z
@@ -181,18 +181,22 @@ var objects = [];
 
                 }}
 	
-	for(i=0;i<100;i++){
-		console.log(scene.children[i]);
-	}
+	
     // Run our render loop
     run();    
 function run() {
-    // update controls at 60fps
-    control.update(1000/60);
-	console.log(renderer.info);
     //render scene and camera                  
     renderer.render (scene, camera);
     requestAnimationFrame(run);
 }
-
+    // update controls at 60fps
+    runControls();
+    function runControls() {
+        
+        control.update(1000/60);
+        setTimeout ( runControls , 1000 / 60 )
+            
+    }
+        
+    
 });
